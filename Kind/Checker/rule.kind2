@@ -13,10 +13,10 @@
 
 Kind.Checker.rule (rule: Kind.Rule) (term: Kind.Term): Kind.Checker Unit
 
-Kind.Checker.rule (Kind.Rule.lhs arg args) (Kind.Term.all orig name type body) =
+Kind.Checker.rule (Kind.Rule.lhs arg args) (Kind.Term.all orig name type self body) =
   do Kind.Checker {
     ask Kind.Checker.check arg type
-    ask Kind.Checker.rule args (body arg)
+    ask Kind.Checker.rule args (body arg (Kind.Term.var orig self 0))
     return Unit.new
   }
 
@@ -27,8 +27,10 @@ Kind.Checker.rule (Kind.Rule.lhs arg args) other =
   }
 
 Kind.Checker.rule (Kind.Rule.rhs expr) type =
-  do Kind.Checker {
-    ask Kind.Checker.set_right_hand_side Bool.true
-    ask Kind.Checker.check expr type
-    return Unit.new
-  }
+  (HVM.log expr
+    do Kind.Checker {
+        ask Kind.Checker.set_right_hand_side Bool.true
+        ask Kind.Checker.check expr type
+        return Unit.new
+    }
+  )

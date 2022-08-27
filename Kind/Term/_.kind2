@@ -4,7 +4,7 @@ Kind.Term : Type
 Kind.Term.typ (orig: U60) : (Kind.Term)
 Kind.Term.hol (orig: U60) (number: U60) : (Kind.Term)
 Kind.Term.var (orig: U60) (name: U60) (index: U60) : (Kind.Term)
-Kind.Term.all (orig: U60) (name: U60) (typ: Kind.Term) (body: (_: Kind.Term) Kind.Term) : (Kind.Term)
+Kind.Term.all (orig: U60) (name: U60) (typ: Kind.Term) (self: U60) (body: (_: Kind.Term)((_: Kind.Term) Kind.Term)) : (Kind.Term)
 Kind.Term.lam (orig: U60) (name: U60) (body: (_: Kind.Term) Kind.Term) : (Kind.Term)
 Kind.Term.app (orig: U60) (func: Kind.Term) (arg: Kind.Term) : (Kind.Term)
 Kind.Term.let (orig: U60) (name: U60) (expr: Kind.Term) (body: (_: Kind.Term) Kind.Term) : (Kind.Term)

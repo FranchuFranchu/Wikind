@@ -7,11 +7,11 @@ Kind.Checker.equal (left: Kind.Term) (right: Kind.Term): Kind.Checker Bool
 Kind.Checker.equal (Kind.Term.typ orig) (Kind.Term.typ orig1) =
   Kind.Checker.pure Bool.true
 
-Kind.Checker.equal (Kind.Term.all a.orig a.name a.type a.body) (Kind.Term.all b.orig b.name b.type b.body) =
+Kind.Checker.equal (Kind.Term.all a.orig a.name a.type a.self a.body) (Kind.Term.all b.orig b.name b.type b.self b.body) =
   do Kind.Checker {
     ask dep  = Kind.Checker.get_depth
     ask type = Kind.Checker.equal a.type b.type
-    ask body = Kind.Checker.extended (Kind.Checker.equal (a.body (Kind.Term.var a.orig a.name dep)) (b.body (Kind.Term.var b.orig b.name dep))) Null Null []
+    ask body = Kind.Checker.extended (Kind.Checker.equal (a.body (Kind.Term.var a.orig a.name dep) (Kind.Term.var a.orig a.self dep)) (b.body (Kind.Term.var b.orig b.name dep) (Kind.Term.var b.orig b.self dep))) Null Null []
     return (Bool.and type body)
   }
 

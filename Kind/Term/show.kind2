@@ -1,10 +1,14 @@
 NameOf (name: U60): String
 
-Kind.Term.show.forall (orig: U60) (name: U60) (type: Kind.Term) (body: Kind.Term -> Kind.Term): String
-Kind.Term.show.forall orig name type body =
+Kind.Term.show.forall (orig: U60) (name: U60) (type: Kind.Term) (self: U60) (body: Kind.Term -> Kind.Term -> Kind.Term): String
+Kind.Term.show.forall orig name type self body =
   (U60.if (== name 63)
-    (Kind.Printer.text ["("  (Kind.Term.show type) " -> " (Kind.Term.show (body (Kind.Term.var orig name 0))) ")"])
-    (Kind.Printer.text ["((" (Kind.Name.show name) ": " (Kind.Term.show type) ") -> " (Kind.Term.show (body (Kind.Term.var orig name 0))) ")"]))
+    (U60.if (== self 63)
+      (Kind.Printer.text ["("  (Kind.Term.show type) " -> " (Kind.Term.show (body (Kind.Term.var orig name 0) (Kind.Term.var orig self 0))) ")"])
+      (Kind.Printer.text ["((" (Kind.Name.show name) ": " (Kind.Term.show type) ") -> " (Kind.Term.show (body (Kind.Term.var orig name 0) (Kind.Term.var orig self 0))) ")"]))
+    (Kind.Printer.text ["(" (Kind.Name.show self) "(" (Kind.Name.show name) ": " (Kind.Term.show type) ") -> " (Kind.Term.show (body (Kind.Term.var orig name 0) (Kind.Term.var orig self 0))) ")"])
+  )
+      
 
 // Pretty prints a @Kind.Term@ into a string.
 Kind.Term.show (term: Kind.Term): String
@@ -19,7 +23,7 @@ Kind.Term.show.go (term: Kind.Term): String
 Kind.Term.show.go (Kind.Term.typ orig)                        = "Type"
 Kind.Term.show.go (Kind.Term.var orig name index)             = Kind.Printer.text [(Kind.Name.show name)]
 Kind.Term.show.go (Kind.Term.hol orig numb)                   = Kind.Printer.text ["_"]
-Kind.Term.show.go (Kind.Term.all orig name type body)         = Kind.Term.show.forall orig name type body
+Kind.Term.show.go (Kind.Term.all orig name type self body)    = Kind.Term.show.forall orig name type self body
 Kind.Term.show.go (Kind.Term.lam orig name body)              = Kind.Printer.text ["(" (Kind.Name.show name) "=>" (Kind.Term.show (body (Kind.Term.var orig name 0))) ")"]
 Kind.Term.show.go (Kind.Term.let orig name exp body)          = Kind.Printer.text ["let " (Kind.Name.show name) " = " (Kind.Term.show exp) "; " (Kind.Term.show (body (Kind.Term.var orig name 0)))]
 Kind.Term.show.go (Kind.Term.ann orig expr type)              = Kind.Printer.text ["{" (Kind.Term.show expr) " :: " (Kind.Term.show type) "}"]

@@ -3,10 +3,15 @@ Kind.Checker.check (term: Kind.Term) (type: Kind.Term): Kind.Checker Unit
 Kind.Checker.check (Kind.Term.lam orig name body) type =
   Kind.Checker.bind Kind.Checker.get_subst (subst =>
     let fun = (Kind.Term.if_all type
-      (t_orig => t_name => t_type => t_body => (orig: U60) => (name: U60) => (body: Kind.Term -> Kind.Term) =>
+      (t_orig => t_name => t_type  => t_self => t_body => (orig: U60) => (name: U60) => (body: Kind.Term -> Kind.Term) =>
         do Kind.Checker {
           ask dep = Kind.Checker.get_depth
-          ask chk = Kind.Checker.extended (Kind.Checker.check (body (Kind.Term.var orig name dep)) (t_body (Kind.Term.var t_orig t_name dep))) name t_type []
+          let check_body = (Kind.Checker.check (body (Kind.Term.var orig name dep)) (t_body (Kind.Term.var t_orig t_name dep) (Kind.Term.lam orig name body)))
+          let check_with_name = Kind.Checker.extended check_body      name   t_type []
+          ask check_with_self = (U60.if (== t_self 63)
+            check_with_name
+            (Kind.Checker.extended check_with_name t_self (Kind.Term.all t_orig t_name t_type t_self t_body) [])
+          )
           return Unit.new
         }
       )

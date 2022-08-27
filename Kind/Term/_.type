@@ -2,7 +2,7 @@ type Kind.Term {
   typ (orig: U60)
   hol (orig: U60) (number: U60)
   var (orig: U60) (name: U60) (index: U60)
-  all (orig: U60) (name: U60) (typ: Kind.Term) (body: Kind.Term -> Kind.Term)
+  all (orig: U60) (name: U60) (typ: Kind.Term) (self: U60) (body: Kind.Term -> Kind.Term -> Kind.Term)
   lam (orig: U60) (name: U60) (body: Kind.Term -> Kind.Term)
   app (orig: U60) (func: Kind.Term) (arg: Kind.Term)
   let (orig: U60) (name: U60) (expr: Kind.Term) (body: Kind.Term -> Kind.Term)

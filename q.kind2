@@ -1,0 +1,31 @@
+Err: Type
+WaitSomeTime: Err
+
+CheckedSetCounter (succ: U60 -> (Kindelia.IO U60)): (Kindelia.IO (Either Err U60)) 
+CheckedSetCounter succ = 
+	do Kindelia.IO {
+		ask state = Kindelia.IO.take (Pair U60 U60)
+		let fst = (Pair.fst state)
+		let snd = (Pair.snd state)
+		let curr_block = 0
+		(U60.if (<= curr_block fst)
+			(
+				do Kindelia.IO {
+					ask _ = (Kindelia.IO.save state)
+					(Kindelia.IO.done (Either.left WaitSomeTime))
+				}
+			)
+			(
+				do Kindelia.IO {
+					ask snd = (succ snd)
+					ask _ = (Kindelia.IO.save (Pair.new fst snd))
+					(Kindelia.IO.done (Either.right snd))
+				}
+			)
+		)
+	}
+	
+Main { 
+	let q = (CheckedSetCounter 2)
+	q
+}
