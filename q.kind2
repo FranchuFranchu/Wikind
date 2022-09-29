@@ -1,31 +1,43 @@
-Err: Type
-WaitSomeTime: Err
-
-CheckedSetCounter (succ: U60 -> (Kindelia.IO U60)): (Kindelia.IO (Either Err U60)) 
-CheckedSetCounter succ = 
-	do Kindelia.IO {
-		ask state = Kindelia.IO.take (Pair U60 U60)
-		let fst = (Pair.fst state)
-		let snd = (Pair.snd state)
-		let curr_block = 0
-		(U60.if (<= curr_block fst)
-			(
-				do Kindelia.IO {
-					ask _ = (Kindelia.IO.save state)
-					(Kindelia.IO.done (Either.left WaitSomeTime))
-				}
-			)
-			(
-				do Kindelia.IO {
-					ask snd = (succ snd)
-					ask _ = (Kindelia.IO.save (Pair.new fst snd))
-					(Kindelia.IO.done (Either.right snd))
-				}
-			)
-		)
-	}
-	
-Main { 
-	let q = (CheckedSetCounter 2)
-	q
-}
+// Automatically derived from Kind/FlatTerm/_.type
+Kind.FlatTerm.all (orig: U60) (name: U60) (typ: Kind.Term) (self: U60) (body: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.ann (orig: U60) (expr: Kind.Term) (typ: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.app (orig: U60) (func: Kind.Term) (arg: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.args7 (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.args8 (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) (x6: Kind.Term) (x7: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.ct0 (ctid: U60) (orig: U60) : (Kind.FlatTerm)
+Kind.FlatTerm.ct1 (ctid: U60) (orig: U60) (x0: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.ct2 (ctid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.ct3 (ctid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.ct4 (ctid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.ct5 (ctid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.ct6 (ctid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.ct7 (ctid: U60) (orig: U60) (args: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.ct8 (ctid: U60) (orig: U60) (args: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.fn0 (ctid: U60) (orig: U60) : (Kind.FlatTerm)
+Kind.FlatTerm.FN0 (ctid: U60) (orig: U60) : (Kind.FlatTerm)
+Kind.FlatTerm.fn1 (ctid: U60) (orig: U60) (x0: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.FN1 (ctid: U60) (orig: U60) (x0: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.fn2 (ctid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.FN2 (ctid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.fn3 (ctid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.FN3 (ctid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.fn4 (ctid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.FN4 (ctid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.fn5 (ctid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.FN5 (ctid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.fn6 (ctid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.FN6 (ctid: U60) (orig: U60) (x0: Kind.Term) (x1: Kind.Term) (x2: Kind.Term) (x3: Kind.Term) (x4: Kind.Term) (x5: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.fn7 (ctid: U60) (orig: U60) (args: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.FN7 (ctid: U60) (orig: U60) (args: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.fn8 (ctid: U60) (orig: U60) (args: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.FN8 (ctid: U60) (orig: U60) (args: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.hlp (orig: U60) : (Kind.FlatTerm)
+Kind.FlatTerm.hol (orig: U60) (number: U60) : (Kind.FlatTerm)
+Kind.FlatTerm : Type
+Kind.FlatTerm.lam (orig: U60) (name: U60) (body: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.let (orig: U60) (name: U60) (expr: Kind.Term) (body: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.num (orig: U60) (num: U60) : (Kind.FlatTerm)
+Kind.FlatTerm.op2 (orig: U60) (operator: Kind.Operator) (left: Kind.Term) (right: Kind.Term) : (Kind.FlatTerm)
+Kind.FlatTerm.typ (orig: U60) : (Kind.FlatTerm)
+Kind.FlatTerm.u60 (orig: U60) : (Kind.FlatTerm)
+Kind.FlatTerm.var (orig: U60) (name: U60) (index: U60) : (Kind.FlatTerm)

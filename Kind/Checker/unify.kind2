@@ -6,6 +6,10 @@ Kind.Checker.unify checker =
     ask equations = Kind.Checker.get_equations
     (Kind.Checker.unify.go equations List.nil Bool.false)
   }
+  
+// Will be used by Kind.Term.roll
+// This is necessary to ensure it appears on the HVM checker code.
+Kind.Checker.unify.import: Kind.Term -> U60 -> Kind.FlatTerm { a => b => (Kind.FlatTerm.from_term (Kind.Term.roll 0 a) b) }
 
 Kind.Checker.unify.go (equations: List Kind.Equation) (unsolved: List Kind.Equation) (changed: Bool): Kind.Checker Unit
 Kind.Checker.unify.go (List.nil t) (List.nil t1) changed = Kind.Checker.pure Unit.new
@@ -13,9 +17,12 @@ Kind.Checker.unify.go (List.nil t) unsolved Bool.true    = Kind.Checker.unify.go
 Kind.Checker.unify.go (List.nil t) unsolved Bool.false   = Kind.Checker.unify.go.fail unsolved
 Kind.Checker.unify.go (List.cons t (Kind.Equation.new ctx orig left right) equations) unsolved changed =
   do Kind.Checker {
-    ask is_equal = Kind.Checker.equal (Kind.Term.eval left) (Kind.Term.eval right)
+    // Todo: Do this in a smart and clever way!
+    ask is_equal = Kind.Checker.equal (Kind.Term.eval (Kind.Term.roll 0 (Kind.Term.eval (Kind.Term.roll 0 left)))) (Kind.Term.eval (Kind.Term.roll 0 (Kind.Term.eval (Kind.Term.roll 0 right))))
+    
+    
     let unify =
-      (if is_equal {
+      (if is_equal{
         (equations: List Kind.Equation) => (unsolved: List Kind.Equation) =>
           Kind.Checker.unify.go equations unsolved Bool.true
       } else {
@@ -30,6 +37,6 @@ Kind.Checker.unify.go.fail (equations: List Kind.Equation): Kind.Checker Unit
 Kind.Checker.unify.go.fail (List.nil t) = Kind.Checker.pure Unit.new
 Kind.Checker.unify.go.fail (List.cons t (Kind.Equation.new ctx orig left right) eqts) =
   do Kind.Checker {
-    ask Kind.Checker.error (Kind.Error.type_mismatch ctx orig left right) Unit.new
+    ask Kind.Checker.error (Kind.Error.type_mismatch ctx orig (Kind.Term.eval (Kind.Term.roll 0 (Kind.Term.eval (Kind.Term.roll 0 left)))) (Kind.Term.eval (Kind.Term.roll 0 (Kind.Term.eval (Kind.Term.roll 0 right))))) Unit.new
     (Kind.Checker.unify.go.fail eqts)
   }

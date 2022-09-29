@@ -1,4 +1,8 @@
 // Gets the depth inside of the @Kind.Checker@.
 Kind.Checker.get_depth : Kind.Checker U60
 Kind.Checker.get_depth = context => depth => rhs => subst => eqts => errs =>
-  Kind.Result.checked context depth rhs subst eqts errs depth
+  (U60.if 
+    (< depth 50) 
+    (Kind.Result.checked context depth rhs subst eqts errs depth)
+    (Kind.Result.errored context subst (List.cons (Kind.Error.too_deep context 0) errs))
+  )

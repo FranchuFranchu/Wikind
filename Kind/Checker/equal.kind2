@@ -262,6 +262,12 @@ Kind.Checker.equal (Kind.Term.fn8 a.ctid a.orig a.args) (Kind.Term.fn8 b.ctid b.
     return Bool.and ctid xargs
   }
 
+Kind.Checker.equal (Kind.Term.fn0 a.ctid a.orig) b =
+  Kind.Checker.equal (Kind.Term.eval (Kind.Term.fn0 a.ctid a.orig)) b
+Kind.Checker.equal b (Kind.Term.fn0 a.ctid a.orig) =
+  Kind.Checker.equal (Kind.Term.eval (Kind.Term.fn0 a.ctid a.orig)) b
+
+
 Kind.Checker.equal a b =
   do Kind.Checker {
     ask sub = Kind.Checker.get_subst

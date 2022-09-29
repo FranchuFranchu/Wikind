@@ -1,0 +1,7 @@
+Kind.Term.roll (orig: U60) (term: Kind.Term): Kind.Term
+Kind.Term.roll orig term = 
+	let result = (Kind.Term.try_roll orig term (Kind.FlatTerm.from_term term orig))
+	(Bool.if (Pair.snd result)
+		(Pair.fst result)
+		(Kind.Term.roll_nr orig (Kind.Term.roll_st (Pair.fst result)))
+	)

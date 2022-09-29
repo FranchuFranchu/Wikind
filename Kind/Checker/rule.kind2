@@ -27,10 +27,9 @@ Kind.Checker.rule (Kind.Rule.lhs arg args) other =
   }
 
 Kind.Checker.rule (Kind.Rule.rhs expr) type =
-  (HVM.log expr
-    do Kind.Checker {
-        ask Kind.Checker.set_right_hand_side Bool.true
-        ask Kind.Checker.check expr type
-        return Unit.new
-    }
-  )
+  do Kind.Checker {
+      ask Kind.Checker.set_right_hand_side Bool.true
+      ask Kind.Checker.check expr type
+      return Unit.new
+  }
+  

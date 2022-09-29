@@ -1,0 +1,13 @@
+Kind.Term.try_roll (orig: U60) (term: Kind.Term) (flat_term: Kind.FlatTerm): (Pair Kind.Term Bool)
+Kind.Term.try_roll orig term flat_term = (Pair.new term Bool.false)
+
+
+// try_roll(term: Flat) = (Pair.new term Bool.true
+// try_roll(other) = (Pair.new term Bool.false)
+// roll(term) =
+// 	try_roll(term)
+//	if false:
+//		roll each subterm
+//		roll_nr(term)
+//  roll_nr(term) 
+// 

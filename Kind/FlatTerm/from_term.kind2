@@ -1,0 +1,34 @@
+Kind.FlatTerm.from_term (term: Kind.Term) (depth: U60): Kind.FlatTerm
+Kind.FlatTerm.from_term (Kind.Term.typ orig)                     depth = Kind.FlatTerm.typ
+Kind.FlatTerm.from_term (Kind.Term.u60 orig)                     depth = Kind.FlatTerm.u60
+Kind.FlatTerm.from_term (Kind.Term.var orig name index)          depth = Kind.FlatTerm.var index
+Kind.FlatTerm.from_term (Kind.Term.all orig name typ self body)  depth = Kind.FlatTerm.all (Kind.FlatTerm.from_term typ depth ) (Kind.FlatTerm.from_term (body (Kind.Term.var 0 0 depth) (Kind.Term.var 0 0 (+ depth 1))) (+ depth 2))
+Kind.FlatTerm.from_term (Kind.Term.lam orig name body)           depth = Kind.FlatTerm.lam (Kind.FlatTerm.from_term (body (Kind.Term.var 0 0 depth)) (+ depth 1) )
+Kind.FlatTerm.from_term (Kind.Term.let orig name expr body)      depth = Kind.FlatTerm.let (Kind.FlatTerm.from_term expr depth ) (Kind.FlatTerm.from_term (body (Kind.Term.var 0 0 depth)) (+ depth 1))
+Kind.FlatTerm.from_term (Kind.Term.ann orig expr typ)            depth = Kind.FlatTerm.ann (Kind.FlatTerm.from_term expr depth ) (Kind.FlatTerm.from_term typ depth )
+Kind.FlatTerm.from_term (Kind.Term.app orig expr typ)            depth = Kind.FlatTerm.app (Kind.FlatTerm.from_term expr depth ) (Kind.FlatTerm.from_term typ depth )
+Kind.FlatTerm.from_term (Kind.Term.hlp orig)                     depth = Kind.FlatTerm.hlp
+Kind.FlatTerm.from_term (Kind.Term.hol orig num)                 depth = Kind.FlatTerm.hol num
+Kind.FlatTerm.from_term (Kind.Term.num orig num)                 depth = Kind.FlatTerm.num num
+Kind.FlatTerm.from_term (Kind.Term.op2 orig op left right)       depth = Kind.FlatTerm.op2 op (Kind.FlatTerm.from_term left depth) (Kind.FlatTerm.from_term right depth)
+
+Kind.FlatTerm.from_term (Kind.Term.ct0 ctid orig)                          depth = Kind.FlatTerm.ct0 ctid
+Kind.FlatTerm.from_term (Kind.Term.ct1 ctid orig x0)                       depth = Kind.FlatTerm.ct1 ctid (Kind.FlatTerm.from_term x0 depth)
+Kind.FlatTerm.from_term (Kind.Term.ct2 ctid orig x0 x1)                    depth = Kind.FlatTerm.ct2 ctid (Kind.FlatTerm.from_term x0 depth) (Kind.FlatTerm.from_term x1 depth)
+Kind.FlatTerm.from_term (Kind.Term.ct3 ctid orig x0 x1 x2)                 depth = Kind.FlatTerm.ct3 ctid (Kind.FlatTerm.from_term x0 depth) (Kind.FlatTerm.from_term x1 depth) (Kind.FlatTerm.from_term x2 depth)
+Kind.FlatTerm.from_term (Kind.Term.ct4 ctid orig x0 x1 x2 x3)              depth = Kind.FlatTerm.ct4 ctid (Kind.FlatTerm.from_term x0 depth) (Kind.FlatTerm.from_term x1 depth) (Kind.FlatTerm.from_term x2 depth) (Kind.FlatTerm.from_term x3 depth)
+Kind.FlatTerm.from_term (Kind.Term.ct5 ctid orig x0 x1 x2 x3 x4)           depth = Kind.FlatTerm.ct5 ctid (Kind.FlatTerm.from_term x0 depth) (Kind.FlatTerm.from_term x1 depth) (Kind.FlatTerm.from_term x2 depth) (Kind.FlatTerm.from_term x3 depth) (Kind.FlatTerm.from_term x4 depth)
+Kind.FlatTerm.from_term (Kind.Term.ct6 ctid orig x0 x1 x2 x3 x4 x5)        depth = Kind.FlatTerm.ct6 ctid (Kind.FlatTerm.from_term x0 depth) (Kind.FlatTerm.from_term x1 depth) (Kind.FlatTerm.from_term x2 depth) (Kind.FlatTerm.from_term x3 depth) (Kind.FlatTerm.from_term x4 depth) (Kind.FlatTerm.from_term x5 depth)
+Kind.FlatTerm.from_term (Kind.Term.ct7 ctid orig args)                     depth = Kind.FlatTerm.ct7 ctid (Kind.FlatTerm.from_term args depth)
+Kind.FlatTerm.from_term (Kind.Term.ct8 ctid orig args)                     depth = Kind.FlatTerm.ct8 ctid (Kind.FlatTerm.from_term args depth)
+Kind.FlatTerm.from_term (Kind.Term.fn0 fnid orig)                          depth = Kind.FlatTerm.fn0 fnid
+Kind.FlatTerm.from_term (Kind.Term.fn1 fnid orig x0)                       depth = Kind.FlatTerm.fn1 fnid (Kind.FlatTerm.from_term x0 depth)
+Kind.FlatTerm.from_term (Kind.Term.fn2 fnid orig x0 x1)                    depth = Kind.FlatTerm.fn2 fnid (Kind.FlatTerm.from_term x0 depth) (Kind.FlatTerm.from_term x1 depth)
+Kind.FlatTerm.from_term (Kind.Term.fn3 fnid orig x0 x1 x2)                 depth = Kind.FlatTerm.fn3 fnid (Kind.FlatTerm.from_term x0 depth) (Kind.FlatTerm.from_term x1 depth) (Kind.FlatTerm.from_term x2 depth)
+Kind.FlatTerm.from_term (Kind.Term.fn4 fnid orig x0 x1 x2 x3)              depth = Kind.FlatTerm.fn4 fnid (Kind.FlatTerm.from_term x0 depth) (Kind.FlatTerm.from_term x1 depth) (Kind.FlatTerm.from_term x2 depth) (Kind.FlatTerm.from_term x3 depth)
+Kind.FlatTerm.from_term (Kind.Term.fn5 fnid orig x0 x1 x2 x3 x4)           depth = Kind.FlatTerm.fn5 fnid (Kind.FlatTerm.from_term x0 depth) (Kind.FlatTerm.from_term x1 depth) (Kind.FlatTerm.from_term x2 depth) (Kind.FlatTerm.from_term x3 depth) (Kind.FlatTerm.from_term x4 depth)
+Kind.FlatTerm.from_term (Kind.Term.fn6 fnid orig x0 x1 x2 x3 x4 x5)        depth = Kind.FlatTerm.fn6 fnid (Kind.FlatTerm.from_term x0 depth) (Kind.FlatTerm.from_term x1 depth) (Kind.FlatTerm.from_term x2 depth) (Kind.FlatTerm.from_term x3 depth) (Kind.FlatTerm.from_term x4 depth) (Kind.FlatTerm.from_term x5 depth)
+Kind.FlatTerm.from_term (Kind.Term.fn7 fnid orig args)                     depth = Kind.FlatTerm.fn7 fnid (Kind.FlatTerm.from_term args depth)
+Kind.FlatTerm.from_term (Kind.Term.fn8 fnid orig args)                     depth = Kind.FlatTerm.fn8 fnid (Kind.FlatTerm.from_term args depth)
+Kind.FlatTerm.from_term (Kind.Term.args7 x0 x1 x2 x3 x4 x5 x6)             depth = Kind.FlatTerm.args7 (Kind.FlatTerm.from_term x0 depth) (Kind.FlatTerm.from_term x1 depth) (Kind.FlatTerm.from_term x2 depth) (Kind.FlatTerm.from_term x3 depth) (Kind.FlatTerm.from_term x4 depth) (Kind.FlatTerm.from_term x5 depth) (Kind.FlatTerm.from_term x6 depth)
+Kind.FlatTerm.from_term (Kind.Term.args8 x0 x1 x2 x3 x4 x5 x6 x7)          depth = Kind.FlatTerm.args8 (Kind.FlatTerm.from_term x0 depth) (Kind.FlatTerm.from_term x1 depth) (Kind.FlatTerm.from_term x2 depth) (Kind.FlatTerm.from_term x3 depth) (Kind.FlatTerm.from_term x4 depth) (Kind.FlatTerm.from_term x5 depth) (Kind.FlatTerm.from_term x6 depth) (Kind.FlatTerm.from_term x7 depth)

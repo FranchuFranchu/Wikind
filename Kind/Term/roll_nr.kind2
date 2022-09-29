@@ -1,0 +1,3 @@
+// Non-recursive roll
+Kind.Term.roll_nr (orig: U60) (term: Kind.Term): Kind.Term
+Kind.Term.roll_nr orig term = (Pair.fst (Kind.Term.try_roll orig term (Kind.FlatTerm.from_term term orig)))

@@ -1,0 +1,36 @@
+// Tries to substitute all of the holes to terms using a @Kind.Subst@.
+Kind.Term.roll_st (term: Kind.Term): Kind.Term
+Kind.Term.roll_st (Kind.Term.typ orig)                    = Kind.Term.typ orig
+Kind.Term.roll_st (Kind.Term.var orig name index)         = Kind.Term.var orig name index
+Kind.Term.roll_st (Kind.Term.all orig name typ self body) = Kind.Term.all orig name (Kind.Term.roll orig  typ) self (x => y => Kind.Term.roll orig (body x y))
+Kind.Term.roll_st (Kind.Term.lam orig name body)          = Kind.Term.lam orig name (x => Kind.Term.roll orig (body x))
+Kind.Term.roll_st (Kind.Term.let orig name expr body)     = Kind.Term.let orig name (Kind.Term.roll orig  expr) (x => Kind.Term.roll orig (body x))
+Kind.Term.roll_st (Kind.Term.ann orig expr typ)           = Kind.Term.ann orig (Kind.Term.roll orig  expr) (Kind.Term.roll orig  typ)
+Kind.Term.roll_st (Kind.Term.app orig expr typ)           = Kind.Term.app orig (Kind.Term.roll orig  expr) (Kind.Term.roll orig  typ)
+Kind.Term.roll_st (Kind.Term.hlp orig)                    = Kind.Term.hlp orig
+Kind.Term.roll_st (Kind.Term.u60 orig)                    = Kind.Term.u60 orig
+Kind.Term.roll_st (Kind.Term.num orig num)                = Kind.Term.num orig num
+Kind.Term.roll_st (Kind.Term.op2 orig op left right)      = Kind.Term.op2 orig op (Kind.Term.roll orig  left) (Kind.Term.roll orig  right)
+
+Kind.Term.roll_st (Kind.Term.ct0 ctid orig)                         = Kind.Term.ct0 ctid orig
+Kind.Term.roll_st (Kind.Term.ct1 ctid orig x0)                      = Kind.Term.ct1 ctid orig (Kind.Term.roll orig  x0)
+Kind.Term.roll_st (Kind.Term.ct2 ctid orig x0 x1)                   = Kind.Term.ct2 ctid orig (Kind.Term.roll orig  x0) (Kind.Term.roll orig  x1)
+Kind.Term.roll_st (Kind.Term.ct3 ctid orig x0 x1 x2)                = Kind.Term.ct3 ctid orig (Kind.Term.roll orig  x0) (Kind.Term.roll orig  x1) (Kind.Term.roll orig  x2)
+Kind.Term.roll_st (Kind.Term.ct4 ctid orig x0 x1 x2 x3)             = Kind.Term.ct4 ctid orig (Kind.Term.roll orig  x0) (Kind.Term.roll orig  x1) (Kind.Term.roll orig  x2) (Kind.Term.roll orig  x3)
+Kind.Term.roll_st (Kind.Term.ct5 ctid orig x0 x1 x2 x3 x4)          = Kind.Term.ct5 ctid orig (Kind.Term.roll orig  x0) (Kind.Term.roll orig  x1) (Kind.Term.roll orig  x2) (Kind.Term.roll orig  x3) (Kind.Term.roll orig  x4)
+Kind.Term.roll_st (Kind.Term.ct6 ctid orig x0 x1 x2 x3 x4 x5)       = Kind.Term.ct6 ctid orig (Kind.Term.roll orig  x0) (Kind.Term.roll orig  x1) (Kind.Term.roll orig  x2) (Kind.Term.roll orig  x3) (Kind.Term.roll orig  x4) (Kind.Term.roll orig  x5)
+Kind.Term.roll_st (Kind.Term.ct7 ctid orig args)                    = Kind.Term.ct7 ctid orig (Kind.Term.roll orig  args)
+Kind.Term.roll_st (Kind.Term.ct8 ctid orig args)                    = Kind.Term.ct8 ctid orig (Kind.Term.roll orig  args)
+Kind.Term.roll_st (Kind.Term.fn0 fnid orig)                         = Kind.Term.fn0 fnid orig
+Kind.Term.roll_st (Kind.Term.fn1 fnid orig x0)                      = Kind.Term.fn1 fnid orig (Kind.Term.roll orig  x0)
+Kind.Term.roll_st (Kind.Term.fn2 fnid orig x0 x1)                   = Kind.Term.fn2 fnid orig (Kind.Term.roll orig  x0) (Kind.Term.roll orig  x1)
+Kind.Term.roll_st (Kind.Term.fn3 fnid orig x0 x1 x2)                = Kind.Term.fn3 fnid orig (Kind.Term.roll orig  x0) (Kind.Term.roll orig  x1) (Kind.Term.roll orig  x2)
+Kind.Term.roll_st (Kind.Term.fn4 fnid orig x0 x1 x2 x3)             = Kind.Term.fn4 fnid orig (Kind.Term.roll orig  x0) (Kind.Term.roll orig  x1) (Kind.Term.roll orig  x2) (Kind.Term.roll orig  x3)
+Kind.Term.roll_st (Kind.Term.fn5 fnid orig x0 x1 x2 x3 x4)          = Kind.Term.fn5 fnid orig (Kind.Term.roll orig  x0) (Kind.Term.roll orig  x1) (Kind.Term.roll orig  x2) (Kind.Term.roll orig  x3) (Kind.Term.roll orig  x4)
+Kind.Term.roll_st (Kind.Term.fn6 fnid orig x0 x1 x2 x3 x4 x5)       = Kind.Term.fn6 fnid orig (Kind.Term.roll orig  x0) (Kind.Term.roll orig  x1) (Kind.Term.roll orig  x2) (Kind.Term.roll orig  x3) (Kind.Term.roll orig  x4) (Kind.Term.roll orig  x5)
+Kind.Term.roll_st (Kind.Term.fn7 fnid orig args)                    = Kind.Term.fn7 fnid orig (Kind.Term.roll orig  args)
+Kind.Term.roll_st (Kind.Term.fn8 fnid orig args)                    = Kind.Term.fn8 fnid orig (Kind.Term.roll orig  args)
+Kind.Term.roll_st (Kind.Term.args7 x0 x1 x2 x3 x4 x5 x6)            = Kind.Term.args7 (Kind.Term.roll 0  x0) (Kind.Term.roll 0  x1) (Kind.Term.roll 0  x2) (Kind.Term.roll 0  x3) (Kind.Term.roll 0  x4) (Kind.Term.roll 0  x5) (Kind.Term.roll 0  x6)
+Kind.Term.roll_st (Kind.Term.args8 x0 x1 x2 x3 x4 x5 x6 x7)         = Kind.Term.args8 (Kind.Term.roll 0  x0) (Kind.Term.roll 0  x1) (Kind.Term.roll 0  x2) (Kind.Term.roll 0  x3) (Kind.Term.roll 0  x4) (Kind.Term.roll 0  x5) (Kind.Term.roll 0  x6) (Kind.Term.roll 0  x7)
+
+Kind.Term.roll_st (Kind.Term.hol orig numb) = (Kind.Term.hol orig numb)
